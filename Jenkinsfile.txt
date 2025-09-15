@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/kaizshk/my-index-project.git', branch: 'main'
+            }
+        }
+
+        stage('Archive HTML') {
+            steps {
+                archiveArtifacts artifacts: 'index.html', fingerprint: true
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline finished!"
+        }
+    }
+}
